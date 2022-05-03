@@ -84,6 +84,10 @@ const posts = [
 
 generatePost(posts);
 
+$('.likes__cta').addEventListener ("click", () => {
+    // toggle su like button cambia classe per colorare e incrementa likes +1
+})
+
 function generatePost(array) {
 	array.forEach((element)=> {
         const {id, content, created, media, likes} = element;
@@ -120,11 +124,7 @@ function generatePost(array) {
             </div>            
         </div>
 		`;
-        
-        function createDate(created) {
-            const date = created;
-            alert(((date.getMonth() > 8) ? (date.getMonth() + 1) : ('0' + (date.getMonth() + 1))) + '/' + ((date.getDate() > 9) ? date.getDate() : ('0' + date.getDate())) + '/' + date.getFullYear());
-        }
+
 		// stampo in html il container con tutte i post aggiunti
 		$('#container').innerHTML += post;
 	})	
