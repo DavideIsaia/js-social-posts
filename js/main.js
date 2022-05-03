@@ -35,50 +35,50 @@ const posts = [
             image: "https://unsplash.it/300/300?image=15"
         },
         likes: 80,
-        created: "2021/06/25"
+        created: '2022-05-03'
     },
     {
         id: 2,
-        content: "Placeat libero ipsa nobis ipsum quibusdam quas harum ut. Distinctio minima iusto. Ad ad maiores et sint voluptate recusandae architecto. Et nihil ullam aut alias.",
+        content: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Distinctio excepturi eos ex ipsa, sit nemo magni sapiente quaerat adipisci quas itaque placeat dolor, beatae aperiam voluptatum expedita dolorem, nisi odit.",
         media: "https://picsum.photos/600/300?random=1",
         author: {
             name: "Giuseppe Conte",
             image: "https://picsum.photos/300?random=2"
         },
         likes: 120,
-        created: "2022/05/03"
+        created: '2022-05-02'
     },
     {
         id: 3,
-        content: "Placeat libero ipsa nobis ipsum quibusdam quas harum ut. Distinctio minima iusto. Ad ad maiores et sint voluptate recusandae architecto. Et nihil ullam aut alias.",
+        content: "Lorem a necessitatibus numquam odit provident harum itaque nam blanditiis illum sed adipisci aliquam dicta accusantium, atque quia aperiam ducimus? Laudantium, molestias suscipit.",
         author: {
             name: "Agente Segreto",
             image: "https://picsum.photos/300?random=3"
         },
         likes: 384,
-        created: "2022/05/01"
+        created: '2022-05-30'
     },
     {
         id: 4,
-        content: "Placeat libero ipsa nobis ipsum quibusdam quas harum ut. Distinctio minima iusto. Ad ad maiores et sint voluptate recusandae architecto. Et nihil ullam aut alias.",
+        content: "Id veniam expedita delectus. Voluptas incidunt molestias dolorem necessitatibus mollitia dignissimos eum, laboriosam quibusdam aut itaque cumque distinctio praesentium totam, tenetur quos!",
         media: "https://picsum.photos/600/300?random=4",
         author: {
             name: "Piero Angela",
             image: "https://picsum.photos/300?random=5"
         },
-        likes: 532,
-        created: "2022/04/30"
+        likes: 235,
+        created: '2022-04-28'
     },
     {
         id: 5,
-        content: "Placeat libero ipsa nobis ipsum quibusdam quas harum ut. Distinctio minima iusto. Ad ad maiores et sint voluptate recusandae architecto. Et nihil ullam aut alias.",
+        content: "Soluta ipsum voluptatibus, libero non, quibusdam aliquam eligendi facilis sed dolore illo tenetur commodi aspernatur, eveniet tempore unde fugit sit veritatis officiis.",
         media: "https://picsum.photos/600/300?random=6",
         author: {
             name: "Martha Kent",
             image: "https://picsum.photos/300?random=7"
         },
         likes: 699,
-        created: "2022/04/25"
+        created: '2022-04-25'
     },
 ];
 
@@ -120,8 +120,12 @@ function generatePost(array) {
             </div>            
         </div>
 		`;
+        
+        function createDate(created) {
+            const date = created;
+            alert(((date.getMonth() > 8) ? (date.getMonth() + 1) : ('0' + (date.getMonth() + 1))) + '/' + ((date.getDate() > 9) ? date.getDate() : ('0' + date.getDate())) + '/' + date.getFullYear());
+        }
 		// stampo in html il container con tutte i post aggiunti
 		$('#container').innerHTML += post;
 	})	
 }
-
