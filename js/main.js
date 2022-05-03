@@ -116,78 +116,50 @@ function generatePost(array) {
         const {id, content, created, media, likes} = element;
         const {image, name} = element.author;
         let post;     
-        if (!image) {
-            post = `
-            <div class="post">
-                <div class="post__header">
-                    <div class="post-meta">                    
-                        <div class="post-meta__icon">
-                            <div class="profile-pic"><span>${noProfilePic(element)}</span></div>                 
-                        </div>
-                        <div class="post-meta__data">
-                            <div class="post-meta__author">${name}</div>
-                            <div class="post-meta__time">${created}</div>
-                        </div>                    
+        post = `
+        <div class="post">
+            <div class="post__header">
+                <div class="post-meta">                    
+                    <div class="post-meta__icon">
+                        ${getProfileImage(element)}   
                     </div>
+                    <div class="post-meta__data">
+                        <div class="post-meta__author">${name}</div>
+                        <div class="post-meta__time">${created}</div>
+                    </div>                    
                 </div>
-                <div class="post__text">${content}</div>
-                <div class="post__image">
-                    <img src=${media} alt="">
-                </div>
-                <div class="post__footer">
-                    <div class="likes js-likes">
-                        <div class="likes__cta">
-                            <a class="like-button  js-like-button" href="#${id}" data-postid="${id}">
-                                <i class="like-button__icon fas fa-thumbs-up" aria-hidden="true"></i>
-                                <span class="like-button__label">Mi Piace</span>
-                            </a>
-                        </div>
-                        <div class="likes__counter">
-                            Piace a <b id="like-counter-${id}" class="js-likes-counter">${likes}</b> persone
-                        </div>
-                    </div> 
-                </div>            
             </div>
-            `;
-
-        } else {
-            post = `
-            <div class="post">
-                <div class="post__header">
-                    <div class="post-meta">                    
-                        <div class="post-meta__icon">
-                            <img class="profile-pic" src=${image} alt=${name}>                    
-                        </div>
-                        <div class="post-meta__data">
-                            <div class="post-meta__author">${name}</div>
-                            <div class="post-meta__time">${created}</div>
-                        </div>                    
+            <div class="post__text">${content}</div>
+            <div class="post__image">
+                <img src=${media} alt="">
+            </div>
+            <div class="post__footer">
+                <div class="likes js-likes">
+                    <div class="likes__cta">
+                        <a class="like-button  js-like-button" href="#${id}" data-postid="${id}">
+                            <i class="like-button__icon fas fa-thumbs-up" aria-hidden="true"></i>
+                            <span class="like-button__label">Mi Piace</span>
+                        </a>
                     </div>
-                </div>
-                <div class="post__text">${content}</div>
-                <div class="post__image">
-                    <img src=${media} alt="">
-                </div>
-                <div class="post__footer">
-                    <div class="likes js-likes">
-                        <div class="likes__cta">
-                            <a class="like-button  js-like-button" href="#${id}" data-postid="${id}">
-                                <i class="like-button__icon fas fa-thumbs-up" aria-hidden="true"></i>
-                                <span class="like-button__label">Mi Piace</span>
-                            </a>
-                        </div>
-                        <div class="likes__counter">
-                            Piace a <b id="like-counter-${id}" class="js-likes-counter">${likes}</b> persone
-                        </div>
-                    </div> 
-                </div>            
-            </div>
-            `;
-        }
-
+                    <div class="likes__counter">
+                        Piace a <b id="like-counter-${id}" class="js-likes-counter">${likes}</b> persone
+                    </div>
+                </div> 
+            </div>            
+        </div>
+        `;
 		// stampo in html il container con tutti i post aggiunti
 		$('#container').innerHTML += post;
 	})	
+}
+
+// la funzione ci restituisce un'immagine profilo o le iniziali dell'autore
+function getProfileImage(user) {
+    if (!user.author.image) {
+        return `<div class="profile-pic"><span>${noProfilePic(user)}</span></div>`;
+    } else {
+        return `<img class="profile-pic" src=${user.author.image} alt=${user.author.name}>`;
+    }
 }
 
 //formatto le date dei post in formato italiano (gg/mm/aaaa)
