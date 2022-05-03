@@ -24,6 +24,7 @@
 //  3. Al click su un pulsante "Mi Piace" di un post, se abbiamo già cliccato dobbiamo decrementare il contatore e cambiare il colore del bottone.
 
 let $ = document.querySelector.bind(document);
+let $All = document.querySelectorAll.bind(document);
 
 const posts = [
     {
@@ -84,9 +85,17 @@ const posts = [
 
 generatePost(posts);
 
-$('.likes__cta').addEventListener ("click", () => {
-    // toggle su like button cambia classe per colorare e incrementa likes +1
-})
+let buttons = $All('.like-button');
+for (let i = 0; i < buttons.length; i++) {
+    buttons[i].addEventListener('click', function() {
+        // let clicked = this.getAttribute('data-postid');
+        // console.log("id button cliccato", clicked);
+        let clickedStatus = this.classList.toggle("like-button--liked");
+        console.log("è cliccato?", clickedStatus);
+        let counter = $('#like-counter-${id}')
+        console.log(counter);
+    })
+}
 
 function generatePost(array) {
 	array.forEach((element)=> {
@@ -112,20 +121,20 @@ function generatePost(array) {
             <div class="post__footer">
                 <div class="likes js-likes">
                     <div class="likes__cta">
-                        <a class="like-button  js-like-button" href="#" data-postid="${id}">
+                        <a class="like-button  js-like-button" href="#${id}" data-postid="${id}">
                             <i class="like-button__icon fas fa-thumbs-up" aria-hidden="true"></i>
                             <span class="like-button__label">Mi Piace</span>
                         </a>
                     </div>
                     <div class="likes__counter">
-                        Piace a <b id="like-counter-1" class="js-likes-counter">${likes}</b> persone
+                        Piace a <b id="like-counter-${id}" class="js-likes-counter">${likes}</b> persone
                     </div>
                 </div> 
             </div>            
         </div>
 		`;
 
-		// stampo in html il container con tutte i post aggiunti
+		// stampo in html il container con tutti i post aggiunti
 		$('#container').innerHTML += post;
 	})	
 }
