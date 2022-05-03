@@ -53,8 +53,7 @@ const posts = [
         id: 3,
         content: "Lorem a necessitatibus numquam odit provident harum itaque nam blanditiis illum sed adipisci aliquam dicta accusantium, atque quia aperiam ducimus? Laudantium, molestias suscipit.",
         author: {
-            name: "Agente Segreto",
-            image: "https://picsum.photos/300?random=3"
+            name: "Agente Segreto"
         },
         likes: 384,
         created: '2022-05-30'
@@ -62,10 +61,10 @@ const posts = [
     {
         id: 4,
         content: "Id veniam expedita delectus. Voluptas incidunt molestias dolorem necessitatibus mollitia dignissimos eum, laboriosam quibusdam aut itaque cumque distinctio praesentium totam, tenetur quos!",
-        media: "https://picsum.photos/600/300?random=4",
+        media: "https://picsum.photos/600/300?random=3",
         author: {
             name: "Piero Angela",
-            image: "https://picsum.photos/300?random=5"
+            image: "https://picsum.photos/300?random=4"
         },
         likes: 235,
         created: '2022-04-28'
@@ -73,20 +72,25 @@ const posts = [
     {
         id: 5,
         content: "Soluta ipsum voluptatibus, libero non, quibusdam aliquam eligendi facilis sed dolore illo tenetur commodi aspernatur, eveniet tempore unde fugit sit veritatis officiis.",
-        media: "https://picsum.photos/600/300?random=6",
+        media: "https://picsum.photos/600/300?random=5",
         author: {
             name: "Martha Kent",
-            image: "https://picsum.photos/300?random=7"
+            image: "https://picsum.photos/300?random=6"
         },
         likes: 699,
         created: '2022-04-25'
     },
 ];
 
+// prendo le date degli oggetti e le converto nel formato voluto prima di stampare i post in pagina
 formatDateIT();
+
+// stampo i post in pagina
 generatePost(posts);
 
+// al clic del bottone metto like e incremento/decremento il relativo contatore
 let buttons = $All('.like-button');
+
 for (let i = 0; i < buttons.length; i++) {
     buttons[i].addEventListener('click', function() {
         // let clicked = this.getAttribute('data-postid');
@@ -98,6 +102,7 @@ for (let i = 0; i < buttons.length; i++) {
             likes++;
             // console.log(likes);                        
         }
+        // appendo il risultato sul DOM 
         $(`#like-counter-${posts[i].id}`).innerHTML = likes;
     })
 }
@@ -110,38 +115,75 @@ function generatePost(array) {
 	array.forEach((element)=> {
         const {id, content, created, media, likes} = element;
         const {image, name} = element.author;
-		let post = `
-        <div class="post">
-            <div class="post__header">
-                <div class="post-meta">                    
-                    <div class="post-meta__icon">
-                        <img class="profile-pic" src=${image} alt=${name}>                    
+        let post;     
+        if (!image) {
+            post = `
+            <div class="post">
+                <div class="post__header">
+                    <div class="post-meta">                    
+                        <div class="post-meta__icon">
+                            <div class="profile-pic"><span>${noProfilePic(element)}</span></div>                 
+                        </div>
+                        <div class="post-meta__data">
+                            <div class="post-meta__author">${name}</div>
+                            <div class="post-meta__time">${created}</div>
+                        </div>                    
                     </div>
-                    <div class="post-meta__data">
-                        <div class="post-meta__author">${name}</div>
-                        <div class="post-meta__time">${created}</div>
-                    </div>                    
                 </div>
+                <div class="post__text">${content}</div>
+                <div class="post__image">
+                    <img src=${media} alt="">
+                </div>
+                <div class="post__footer">
+                    <div class="likes js-likes">
+                        <div class="likes__cta">
+                            <a class="like-button  js-like-button" href="#${id}" data-postid="${id}">
+                                <i class="like-button__icon fas fa-thumbs-up" aria-hidden="true"></i>
+                                <span class="like-button__label">Mi Piace</span>
+                            </a>
+                        </div>
+                        <div class="likes__counter">
+                            Piace a <b id="like-counter-${id}" class="js-likes-counter">${likes}</b> persone
+                        </div>
+                    </div> 
+                </div>            
             </div>
-            <div class="post__text">${content}</div>
-            <div class="post__image">
-                <img src=${media} alt="">
+            `;
+
+        } else {
+            post = `
+            <div class="post">
+                <div class="post__header">
+                    <div class="post-meta">                    
+                        <div class="post-meta__icon">
+                            <img class="profile-pic" src=${image} alt=${name}>                    
+                        </div>
+                        <div class="post-meta__data">
+                            <div class="post-meta__author">${name}</div>
+                            <div class="post-meta__time">${created}</div>
+                        </div>                    
+                    </div>
+                </div>
+                <div class="post__text">${content}</div>
+                <div class="post__image">
+                    <img src=${media} alt="">
+                </div>
+                <div class="post__footer">
+                    <div class="likes js-likes">
+                        <div class="likes__cta">
+                            <a class="like-button  js-like-button" href="#${id}" data-postid="${id}">
+                                <i class="like-button__icon fas fa-thumbs-up" aria-hidden="true"></i>
+                                <span class="like-button__label">Mi Piace</span>
+                            </a>
+                        </div>
+                        <div class="likes__counter">
+                            Piace a <b id="like-counter-${id}" class="js-likes-counter">${likes}</b> persone
+                        </div>
+                    </div> 
+                </div>            
             </div>
-            <div class="post__footer">
-                <div class="likes js-likes">
-                    <div class="likes__cta">
-                        <a class="like-button  js-like-button" href="#${id}" data-postid="${id}">
-                            <i class="like-button__icon fas fa-thumbs-up" aria-hidden="true"></i>
-                            <span class="like-button__label">Mi Piace</span>
-                        </a>
-                    </div>
-                    <div class="likes__counter">
-                        Piace a <b id="like-counter-${id}" class="js-likes-counter">${likes}</b> persone
-                    </div>
-                </div> 
-            </div>            
-        </div>
-		`;
+            `;
+        }
 
 		// stampo in html il container con tutti i post aggiunti
 		$('#container').innerHTML += post;
@@ -155,4 +197,10 @@ function formatDateIT() {
         let ItDate = (`${dateArray[2]}/${dateArray[1]}/${dateArray[0]}`);
         posts[i].created = ItDate;
     }
+}
+
+//ritorna iniziali autore
+function noProfilePic(element) {
+    let nameArray = element.author.name.split(" ");
+    return nameArray[0][0] + nameArray[nameArray.length - 1][0];
 }
