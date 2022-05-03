@@ -85,15 +85,20 @@ const posts = [
 
 generatePost(posts);
 
+
 let buttons = $All('.like-button');
 for (let i = 0; i < buttons.length; i++) {
     buttons[i].addEventListener('click', function() {
         // let clicked = this.getAttribute('data-postid');
         // console.log("id button cliccato", clicked);
         let clickedStatus = this.classList.toggle("like-button--liked");
-        console.log("è cliccato?", clickedStatus);
-        let counter = $('#like-counter-${id}')
-        console.log(counter);
+        // console.log("è cliccato?", clickedStatus);
+        let likes = posts[i].likes;
+        if (clickedStatus === true) {
+            likes++;
+            // console.log(likes);                        
+        }
+        $(`#like-counter-${posts[i].id}`).innerHTML = likes;
     })
 }
 
