@@ -83,8 +83,8 @@ const posts = [
     },
 ];
 
+formatDateIT();
 generatePost(posts);
-
 
 let buttons = $All('.like-button');
 for (let i = 0; i < buttons.length; i++) {
@@ -102,6 +102,10 @@ for (let i = 0; i < buttons.length; i++) {
     })
 }
 
+// -----------------------------------------------------------------
+// FUNCTIONS
+
+// genero i post in base ai dati degli oggetti in array
 function generatePost(array) {
 	array.forEach((element)=> {
         const {id, content, created, media, likes} = element;
@@ -142,4 +146,13 @@ function generatePost(array) {
 		// stampo in html il container con tutti i post aggiunti
 		$('#container').innerHTML += post;
 	})	
+}
+
+//formatto le date dei post in formato italiano (gg/mm/aaaa)
+function formatDateIT() {
+    for (let i = 0; i < posts.length; i++) {
+        let dateArray = posts[i].created.split("-");
+        let ItDate = (`${dateArray[2]}/${dateArray[1]}/${dateArray[0]}`);
+        posts[i].created = ItDate;
+    }
 }
