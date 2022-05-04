@@ -156,7 +156,7 @@ function generatePost(array) {
 // la funzione ci restituisce un'immagine profilo o le iniziali dell'autore
 function getProfileImage(user) {
     if (!user.author.image) {
-        return `<div class="profile-pic"><span>${noProfilePic(user)}</span></div>`;
+        return `<div class="profile-pic-default"><span>${noProfilePic(user)}</span></div>`;
     } else {
         return `<img class="profile-pic" src=${user.author.image} alt=${user.author.name}>`;
     }
